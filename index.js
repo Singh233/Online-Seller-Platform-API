@@ -1,8 +1,10 @@
 /* eslint-disable consistent-return */
 const express = require("express");
+const cors = require("cors");
+
+const db = require("./config/mongoose");
 
 const port = process.env.PORT || 8000;
-const cors = require("cors");
 
 // instance of express app
 const app = express();
