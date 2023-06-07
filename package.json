@@ -1,0 +1,35 @@
+{
+  "name": "online-seller-platform",
+  "version": "1.0.0",
+  "description": "Platform for sellers to showcase and sell their products online.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./"
+  },
+  "keywords": [
+    "ecommerce"
+  ],
+  "author": "Sanambir Singh",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.2",
+    "nodemon": "^2.0.22",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "prettier": "^2.8.8"
+  }
+}
