@@ -1,8 +1,13 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
 /* eslint-disable import/no-extraneous-dependencies */
+const bcrypt = require("bcrypt");
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
 
 const Seller = require("../../../models/seller");
 const env = require("../../../config/environment");
+
+const saltRounds = 10;
 
 const fieldsValidator = Joi.object({
   email: Joi.string().email().required(),
@@ -35,7 +40,12 @@ module.exports.signUpSeller = async function (request, response) {
 
     // if doesn't exists create one
     if (!seller) {
-      const newSeller = await Seller.create(value);
+      const { password } = value;
+
+      // encrypt password using bcrypt
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hash = await bcrypt.hash(password, salt);
+      const newSeller = await Seller.create({ ...value, password: hash });
 
       // expires in 11 days
       const expiresIn = 11 * 24 * 60 * 60 * 1000;
@@ -45,6 +55,7 @@ module.exports.signUpSeller = async function (request, response) {
         200,
         "Sign up successfull",
         {
+          token: jwt.sign(newSeller.toJSON(), env.jwt_secret, { expiresIn }), //
           seller: newSeller,
         },
         true
