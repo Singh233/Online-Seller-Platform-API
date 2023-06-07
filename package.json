@@ -14,7 +14,9 @@
   "author": "Sanambir Singh",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^6.11.0",
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "eslint-config-airbnb": "^19.0.4",
@@ -28,6 +30,7 @@
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1"

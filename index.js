@@ -1,13 +1,27 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 const express = require("express");
 const cors = require("cors");
-
+const multer = require("multer");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const passportJWT = require("./config/passport-jwt-strategy");
 const db = require("./config/mongoose");
 
 const port = process.env.PORT || 8000;
 
 // instance of express app
 const app = express();
+
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    // no larger than 5mb.
+    fileSize: 5 * 1024 * 1024,
+  },
+});
+
+app.use(multerMid.single("file"));
 
 // urlencoded to decode the data send by forms
 app.use(express.urlencoded());

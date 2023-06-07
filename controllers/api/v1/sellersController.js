@@ -111,7 +111,7 @@ module.exports.signInSeller = async function (request, response) {
     seller.password = undefined;
 
     // expires in 11 days
-    const expiresIn = 11 * 24 * 60 * 60 * 100;
+    const expiresIn = 11 * 24 * 60 * 60 * 1000;
 
     return handleResponse(
       response,

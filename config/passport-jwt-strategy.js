@@ -12,12 +12,12 @@ const opts = {
 
 passport.use(
   new JWTStrategy(opts, async function (jwtPayLoad, done) {
-    const user = await Seller.findById(jwtPayLoad._id);
+    const seller = await Seller.findById(jwtPayLoad._id);
 
-    if (!user) {
+    if (!seller) {
       return done(null, false);
     }
-    return done(null, user);
+    return done(null, seller);
   })
 );
 
