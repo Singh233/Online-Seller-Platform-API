@@ -26,7 +26,6 @@ const handleResponse = (res, status, message, data, success) => {
 module.exports.createStore = async function (request, response) {
   try {
     const { user } = request;
-    console.log(user, request.body);
     if (!user) {
       return handleResponse(response, 401, "Unauthorized", {}, false);
     }
