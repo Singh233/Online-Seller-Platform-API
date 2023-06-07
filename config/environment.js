@@ -2,7 +2,6 @@ const development = {
   name: "development",
   asset_path: "./assets",
   db: process.env.ONLINE_SELLER_DEVELOPMENT_DB,
-
 };
 
 const production = {
@@ -12,4 +11,4 @@ const production = {
 };
 
 // module.exports = eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT);
-module.exports = production;
+module.exports = development;

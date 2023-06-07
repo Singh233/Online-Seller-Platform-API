@@ -14,7 +14,9 @@
   "author": "Sanambir Singh",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^8.8.0",
@@ -23,6 +25,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "express": "^4.18.2",
+    "joi": "^17.9.2",
     "mongoose": "^7.2.2",
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
