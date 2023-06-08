@@ -23,6 +23,13 @@ const storeSchema = new mongoose.Schema({
     ref: "Seller",
     required: true,
   },
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+  ],
 });
 
 const Store = mongoose.model("Store", storeSchema);

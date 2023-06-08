@@ -10,4 +10,7 @@ router.post("/sign-up", sellerController.signUpSeller);
 // Sign in seller router
 router.post("/sign-in", sellerController.signInSeller);
 
+// Route for seller profile
+router.get("/profile/:id", sellerController.profile);
+
 module.exports = router;

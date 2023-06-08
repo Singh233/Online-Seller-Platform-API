@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 
 const Seller = require("../../../models/seller");
 const env = require("../../../config/environment");
+const Store = require("../../../models/store");
+const { Category, Subcategory } = require("../../../models/category");
+const Product = require("../../../models/product");
 
 const saltRounds = 10;
 
@@ -13,6 +16,7 @@ const fieldsValidator = Joi.object({
   email: Joi.string().email().required(),
   businessName: Joi.string(),
   password: Joi.string().required(),
+  confirmPassword: Joi.string(),
 });
 
 // helper function to handle the response
@@ -35,6 +39,15 @@ module.exports.signUpSeller = async function (request, response) {
       return handleResponse(response, 422, "Invalid fields", { error }, false);
     }
 
+    if (value.password !== value.confirmPassword) {
+      return handleResponse(
+        response,
+        404,
+        "Confirm password doesn't match!",
+        { error },
+        false
+      );
+    }
     // find seller
     const seller = await Seller.findOne({ email: value.email });
 
@@ -121,6 +134,36 @@ module.exports.signInSeller = async function (request, response) {
         token: jwt.sign(seller.toJSON(), env.jwt_secret, { expiresIn }), //
         user: seller,
       },
+      true
+    );
+  } catch (error) {
+    return handleResponse(response, 500, "Internal server error", {}, false);
+  }
+};
+
+// profile
+module.exports.profile = async function (request, response) {
+  try {
+    // validate the request params
+    const { value, error } = Joi.object({
+      id: Joi.string().required().min(1).max(100),
+    }).validate(request.params);
+
+    if (error) {
+      return handleResponse(response, 422, "Invalid fields", { error }, false);
+    }
+
+    const seller = await Seller.findById(value.id);
+    const store = await Store.findOne({ seller: value.id });
+    const categories = await Category.find({ seller: value.id });
+    const subCategories = await Subcategory.find({ seller: value.id });
+    const products = await Product.find({ seller: value.id });
+
+    return handleResponse(
+      response,
+      200,
+      "Seller profile",
+      { seller, store, categories, subCategories, products },
       true
     );
   } catch (error) {

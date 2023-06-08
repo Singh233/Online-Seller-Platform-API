@@ -13,6 +13,20 @@ const port = process.env.PORT || 8000;
 // instance of express app
 const app = express();
 
+// use cors
+app.use(
+  cors({
+    origin: [
+      "https://chillsanam.me",
+      "http://localhost:3000",
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+      "http://192.168.0.5:5173",
+      "http://192.168.0.8:5173",
+    ],
+  })
+);
+
 const multerMid = multer({
   storage: multer.memoryStorage(),
   limits: {

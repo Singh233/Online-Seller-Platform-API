@@ -25,7 +25,7 @@ const uploadImage = (file) =>
     blobStream
       .on("finish", () => {
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}${uniqueSuffix}`;
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
         resolve(publicUrl);
       })
       .on("error", () => {
