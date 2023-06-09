@@ -13,20 +13,6 @@ const port = process.env.PORT || 8000;
 // instance of express app
 const app = express();
 
-// use cors
-app.use(
-  cors({
-    origin: [
-      "https://chillsanam.me",
-      "http://localhost:3000",
-      "http://127.0.0.1:5173",
-      "http://localhost:5173",
-      "http://192.168.0.5:5173",
-      "http://192.168.0.8:5173",
-    ],
-  })
-);
-
 const multerMid = multer({
   storage: multer.memoryStorage(),
   limits: {
@@ -38,10 +24,25 @@ const multerMid = multer({
 app.use(multerMid.single("filepond"));
 
 // urlencoded to decode the data send by forms
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 // json to decode the data send in form of json
 app.use(express.json());
+
+// use cors
+app.use(
+  cors({
+    origin: [
+      "https://sellerplatform.sanam.tech",
+      "http://127.0.0.1:3000",
+      "http://localhost:3000",
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+      "http://192.168.0.5:5173",
+      "http://192.168.0.8:5173",
+    ],
+  })
+);
 
 app.use("/api/v1/", require("./routes/api/v1/index"));
 

@@ -51,6 +51,19 @@ module.exports.signUpSeller = async function (request, response) {
     // find seller
     const seller = await Seller.findOne({ email: value.email });
 
+    // check if the business name already exists
+    const business = await Seller.findOne({ businessName: value.businessName });
+
+    if (business) {
+      return handleResponse(
+        response,
+        404,
+        "Business already exists!",
+        { error },
+        false
+      );
+    }
+
     // if doesn't exists create one
     if (!seller) {
       const { password } = value;
