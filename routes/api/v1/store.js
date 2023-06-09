@@ -12,4 +12,7 @@ router.post(
   storeController.createStore
 );
 
+// router for get store
+router.get("/:storeName", storeController.getStore);
+
 module.exports = router;

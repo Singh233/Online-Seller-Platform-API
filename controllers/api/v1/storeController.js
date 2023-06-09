@@ -7,6 +7,10 @@ const Seller = require("../../../models/seller");
 const Store = require("../../../models/store");
 const uploadImage = require("../../../helper/imageUpload");
 
+const env = require("../../../config/environment");
+const { Category, Subcategory } = require("../../../models/category");
+const Product = require("../../../models/product");
+
 const fieldsValidator = Joi.object({
   address: Joi.string().required(),
   gst: Joi.string().required(),
@@ -64,8 +68,48 @@ module.exports.createStore = async function (request, response) {
     return handleResponse(
       response,
       200,
-      "Post created successfully",
+      "Store created successfully",
       { store: newStore },
+      true
+    );
+  } catch (error) {
+    return handleResponse(response, 500, "Internal server error", {}, false);
+  }
+};
+
+// Get store
+module.exports.getStore = async function (request, response) {
+  try {
+    // validate the request params
+    const { value, error } = Joi.object({
+      storeName: Joi.string().required().min(1).max(100),
+    }).validate(request.params);
+
+    if (error) {
+      return handleResponse(response, 422, "Invalid fields", { error }, false);
+    }
+
+    const seller = await Seller.findOne({ businessName: value.storeName });
+
+    if (!seller) {
+      return handleResponse(
+        response,
+        404,
+        "Business doesn't exists!",
+        { error },
+        false
+      );
+    }
+    const store = await Store.findOne({ seller: seller._id });
+    const categories = await Category.find({ seller: seller._id });
+    const subCategories = await Subcategory.find({ seller: seller._id });
+    const products = await Product.find({ seller: seller._id });
+
+    return handleResponse(
+      response,
+      200,
+      "Seller profile",
+      { seller, store, categories, subCategories, products },
       true
     );
   } catch (error) {

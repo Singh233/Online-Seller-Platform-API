@@ -35,7 +35,7 @@ const multerMid = multer({
   },
 });
 
-app.use(multerMid.single("file"));
+app.use(multerMid.single("filepond"));
 
 // urlencoded to decode the data send by forms
 app.use(express.urlencoded());

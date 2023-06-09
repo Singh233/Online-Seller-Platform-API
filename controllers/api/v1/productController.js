@@ -13,9 +13,9 @@ const fieldsValidator = Joi.object({
   categoryId: Joi.string().required(),
   subCategoryId: Joi.string().required(),
   productName: Joi.string().required(),
-  MRP: Joi.number().required(),
-  SP: Joi.number().required(),
-  quantity: Joi.number().required(),
+  MRP: Joi.string().required(),
+  SP: Joi.string().required(),
+  quantity: Joi.string().required(),
 });
 
 // helper function to handle the response
@@ -75,6 +75,7 @@ module.exports.createProduct = async function (request, response) {
       true
     );
   } catch (error) {
+    console.log(error)
     return handleResponse(response, 500, "Internal server error", {}, false);
   }
 };
